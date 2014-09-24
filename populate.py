@@ -8,7 +8,9 @@ import datetime
 import os
 import requests
 
-os.system("rm app.db")
+if(os.path.isfile("app.db")):
+    os.system("rm app.db")
+
 db.create_all()
 
 if not os.path.isfile(WORDS):
