@@ -13,18 +13,16 @@
     <method_context>
       <method_credential group='other' user='stories'/>
       <method_environment>
-        <envvar name='PATH' value='$PATH:/opt/local/bin:/home/stories/stories/.env/bin'/>
-        <envvar name='PYTHONPATH' value='/home/stories/stories/.env/lib/python2.7/site-packages/'/>
+        <envvar name='PATH' value='$PATH:/opt/local/bin'/>
         <envvar name='PORT' value='4000'/>
         <envvar name='ADDRESS' value='0.0.0.0'/>
         <envvar name='WORKERS' value='4'/>
         <envvar name='ENVIRONMENT' value='production'/>
-        <envvar name='DB_PASS' value='pgStoriesPass01'/>
+        <envvar name='DB_PASS' value='pgStories01'/>
         <envvar name='DB_URL' value='postgres0'/>
-        <envvar name='NEW_RELIC_CONFIG_FILE' value='newrelic.ini'/>
       </method_environment>
     </method_context>
-    <exec_method name='start' type='method' exec='echo $PATH; newrelic-admin run-program gunicorn --workers $WORKERS app:app -b $ADDRESS:$PORT --access-logfile=../logs/gunicorn.access.log --error-logfile=../logs/gunicorn.error.log' timeout_seconds='60'>
+    <exec_method name='start' type='method' exec='gunicorn --workers $WORKERS app:app -b $ADDRESS:$PORT --access-logfile=../logs/gunicorn.access.log --error-logfile=../logs/gunicorn.error.log' timeout_seconds='60'>
       <method_context working_directory='/home/stories/stories/'/>
     </exec_method>
     <exec_method name='stop' type='method' exec=':kill' timeout_seconds='60'/>
