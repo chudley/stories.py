@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block body %}
+<h2>{{ results[0].user.name }}'s comments</h2>
+<ul>
+{% for comment in results %}
+<li>
+  <p><a href="{{ url_for('stories.detail', story_id=comment.story.id) }}">{{ comment.story.title }}</a> posted on {{ comment.story.created }}</p>
+  {{ comment.content|markdown }}  
+</li>
+{% endfor %}
+</ul>
+{% include "_pagination.html" %}
+{% endblock %}

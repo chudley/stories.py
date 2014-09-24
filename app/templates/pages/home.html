@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block body %}
+<h2>Welcome to Stories</h2>
+<p>Stories is an application written to test deployment and scaling practices. This particular application is written in Python using the Flask framework, backed by PostgreSQL.</p>
+<h3>Last 10 stories</h3>
+<a href="{{ url_for('stories.list') }}">View all stories</a>
+<ul>
+{% for story in stories %}
+  <li><a href="{{ url_for('stories.detail', story_id=story.id) }}">{{ story.title }}</a> - posted by <a href="{{ url_for('users.detail', user_id=story.user.id) }}">{{ story.user.name }}</a> on {{ story.created }}</li>
+{% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<ul>
+{% for comment in results %}
+<li>{{ comment.content }}</li>
+{% endfor %}
+</ul>
+{% include "_pagination.html" %}
+{% endblock %}

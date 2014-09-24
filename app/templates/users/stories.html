@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block body %}
+<h2>{{ results[0].user.name }}'s stories</h2>
+<ul>
+{% for story in results %}
+<li>
+  <p><a href="{{ url_for('stories.detail', story_id=story.id) }}">{{ story.title }}</a> on {{ story.created }}</p>
+</li>
+{% endfor %}
+</ul>
+{% include "_pagination.html" %}
+{% endblock %}

@@ -1,0 +1,13 @@
+<!doctype html>
+<title>Stories</title>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+<div class="page">
+<header>
+<h1><a href="/">Stories</a></h1>
+<a href="{{ url_for('stories.list') }}">Stories</a> - <a href="{{ url_for('users.list') }}">Users</a>
+</header>
+{% block body %}{% endblock %}
+<footer>
+  <p>Served by {{ node }}</p>
+</footer>
+</div>

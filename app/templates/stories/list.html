@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block body %}
+<ul>
+{% for story in results %}
+<li><a href="{{ url_for('stories.detail', story_id=story.id) }}">{{ story.title }}</a> by <a href="{{ url_for('users.detail', user_id=story.user.id) }}">{{ story.user.name }}</a>
+{% else %}
+<li><em>Unbelievable.  No entries here so far</em>
+{% endfor %}
+</ul>
+{% include "_pagination.html" %}
+{% endblock %}

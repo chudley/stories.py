@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block body %}
+  <h2>{{ story.title }}</h2>
+  {{ story.content|markdown }}
+  <p>by <a href="{{ url_for('users.detail', user_id=story.user.id) }}">{{ story.user.name }}</a>, posted on {{ story.created }}</p>
+  <h3>Latest Comments</h3>
+  <a href="{{ url_for('stories.comments', story_id=story.id) }}">View all ({{ story.comment_count }})</a>
+  <ul>
+  {% for comment in comments %}
+  <li>
+    <p><a href="{{ url_for('users.detail', user_id=comment.user.id) }}">{{ comment.user.name }}</a> ({{ comment.created }})</p>
+    {{ comment.content|markdown }}
+  </li>
+  {% endfor %}
+  </ul>
+{% endblock %}
