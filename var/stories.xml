@@ -1,0 +1,43 @@
+<?xml version='1.0'?>
+<!DOCTYPE service_bundle SYSTEM '/usr/share/lib/xml/dtd/service_bundle.dtd.1'>
+<service_bundle type='manifest' name='export'>
+  <service name='site/stories' type='service' version='0'>
+    <create_default_instance enabled='true'/>
+    <single_instance/>
+    <dependency name='network' grouping='require_all' restart_on='error' type='service'>
+      <service_fmri value='svc:/milestone/network:default'/>
+    </dependency>
+    <dependency name='filesystem' grouping='require_all' restart_on='error' type='service'>
+      <service_fmri value='svc:/system/filesystem/local'/>
+    </dependency>
+    <method_context>
+      <method_credential group='other' user='stories'/>
+      <method_environment>
+        <envvar name='PATH' value='$PATH:/opt/local/bin:/home/stories/stories/.env/bin'/>
+        <envvar name='PYTHONPATH' value='/home/stories/stories/.env/lib/python2.7/site-packages/'/>
+        <envvar name='PORT' value='4000'/>
+        <envvar name='ADDRESS' value='0.0.0.0'/>
+        <envvar name='WORKERS' value='4'/>
+        <envvar name='ENVIRONMENT' value='production'/>
+        <envvar name='DB_PASS' value='pgStoriesPass01'/>
+        <envvar name='DB_URL' value='postgres0'/>
+        <envvar name='NEW_RELIC_CONFIG_FILE' value='newrelic.ini'/>
+      </method_environment>
+    </method_context>
+    <exec_method name='start' type='method' exec='echo $PATH; newrelic-admin run-program gunicorn --workers $WORKERS app:app -b $ADDRESS:$PORT --access-logfile=../logs/gunicorn.access.log --error-logfile=../logs/gunicorn.error.log' timeout_seconds='60'>
+      <method_context working_directory='/home/stories/stories/'/>
+    </exec_method>
+    <exec_method name='stop' type='method' exec=':kill' timeout_seconds='60'/>
+    <property_group name='startd' type='framework'>
+      <propval name='duration' type='astring' value='child'/>
+      <propval name='ignore_error' type='astring' value='core,signal'/>
+    </property_group>
+    <property_group name='application' type='application'/>
+    <stability value='Evolving'/>
+    <template>
+      <common_name>
+        <loctext xml:lang='C'>SMF service for stories app</loctext>
+      </common_name>
+    </template>
+  </service>
+</service_bundle>
