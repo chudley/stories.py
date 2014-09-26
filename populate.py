@@ -11,6 +11,7 @@ import requests
 if(os.path.isfile("app.db")):
     os.system("rm app.db")
 
+db.drop_all()
 db.create_all()
 
 if not os.path.isfile(WORDS):
