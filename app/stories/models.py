@@ -10,7 +10,7 @@ class Story(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users_user.id'))
     user = db.relationship("User", backref=backref('stories_story', order_by=id))
     title = db.Column(db.String(50), unique=True)
-    content = db.Column(db.String(10000))
+    content = db.Column(db.String(20000))
     created = db.Column(db.DateTime)
     comments = db.relationship("Comment", backref="stories_comment", lazy="dynamic")
 
