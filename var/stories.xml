@@ -16,7 +16,7 @@
         <envvar name='PATH' value='$PATH:/opt/local/bin'/>
         <envvar name='PORT' value='4000'/>
         <envvar name='ADDRESS' value='0.0.0.0'/>
-        <envvar name='WORKERS' value='4'/>
+        <envvar name='WORKERS' value='1'/>
         <envvar name='STORIES_ENV' value='production'/>
         <envvar name='STORIES_DB_PASS' value='pgStories01'/>
         <envvar name='STORIES_DB_URL' value='localhost'/>
